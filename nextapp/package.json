@@ -10,15 +10,20 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
+    "@headlessui/react": "^2.2.1",
+    "@heroicons/react": "^2.2.0",
     "@shopify/storefront-api-client": "^1.0.6",
     "clsx": "^2.1.1",
     "graphql": "^16.10.0",
+    "i": "^0.3.7",
     "lucide-react": "^0.483.0",
-    "motion": "^12.5.0",
+    "motion": "^12.6.2",
     "next": "15.2.3",
+    "npm": "^11.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.2"
+    "react-remove-scroll": "^2.6.3",
+    "tailwind-merge": "^3.0.2",
+    "tailwind-scrollbar-hide": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
