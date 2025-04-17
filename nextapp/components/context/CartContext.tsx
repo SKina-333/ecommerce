@@ -61,6 +61,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
                     console.log("cart response:", updateCartItem);
                     updateCartLines(cartId!);
                     setIsCartOpen(true);
+                    getCartObject(cartId!);
                 }
            }else{
                 const lineItem =  [
@@ -74,6 +75,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
                     console.log("cart response:", addNewCartItem);
                     updateCartLines(cartId!);
                     setIsCartOpen(true);
+                    getCartObject(cartId!);
                 }
            }
 
@@ -93,6 +95,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
                 setCartId(cart.cartCreate.cart.id);
                 setCheckoutUrl(cart.cartCreate.cart.checkoutUrl);
                 updateCartLines(cartId!);
+                getCartObject(cart.cartCreate.cart.id);
                 localStorage.setItem("cartId", cart.cartCreate.cart.id);
                 setIsCartOpen(true);
             }
@@ -110,7 +113,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         
     },[]);
     return (
-        <CartContext.Provider value={{ cartId, isCartOpen, setIsCartOpen, addToCart, cartLines, checkoutUrl }}>
+        <CartContext.Provider value={{ cartId, isCartOpen, setIsCartOpen, addToCart, cartLines, checkoutUrl, cartObject }}>
             {children}
         </CartContext.Provider>
     );

@@ -60,6 +60,10 @@ interface VariantEdge {
 interface VariantNode {
   id: string;
   title: string;
+  price:  {
+    amount: number;
+    currncyCode: string;
+  }
 }
 
 interface ImageEdge {
@@ -177,6 +181,16 @@ interface ProductVariantMerchandise extends CartLineMerchandise {
   __typename: "ProductVariant";
   id: string;
   currentlyNotInStock: boolean;
+  image: {
+    url: string;
+  };
+  price: {
+    amount: number;
+    currencyCode: string;
+  };
+  product: {
+    title: string;
+  }
 }
 interface CartLineMerchandise {
   __typename: string;
@@ -222,6 +236,10 @@ export async function getCollection(
                   node {
                     id
                     title
+                    price {
+                      amount
+                      currencyCode
+                    }
                   }
                 }
               }
@@ -253,6 +271,18 @@ export async function getAllCollections() {
                 node {
                   id
                   title
+                  variants(first: 5) {
+                    edges {
+                      node {
+                        id
+                        title
+                        price {
+                          amount
+                          currencyCode
+                        }
+                      }
+                    }
+                  }
                   images(first: 5) {
                     edges {
                       node {
@@ -433,6 +463,16 @@ export async function getCart(
               ... on ProductVariant {
                 id
                 currentlyNotInStock
+                image {
+                  url
+                }
+                price {
+                  amount
+                  currencyCode  
+                }
+                product {
+                  title
+                }
               }
             }
           }
