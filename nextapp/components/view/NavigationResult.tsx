@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 import { useCartContext } from "../context/CartContext";
+import { AnimatedBackground } from "../motion-primitives/animated-background";
 
 import Link from "next/link";
 const montserrat = Montserrat({
@@ -10,9 +11,9 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 export default function NavigationResult() {
-  const TABS = ["Home", "Featured", "Products", "Blog", "Contact"];
-  const { isCartOpen, setIsCartOpen, cartLines, checkoutUrl } =
-    useCartContext();
+  const TABS = ["Home", "Products", "Contact"];
+  const [selectedTab, setSelectedTab] = useState(TABS[0]);
+  const { setIsCartOpen } = useCartContext();
 
   return (
     <>
@@ -21,17 +22,33 @@ export default function NavigationResult() {
       >
         <div className="flex flex-row items-center gap-[44px]">
           <p className="font-semibold text-lg">Ecommerce</p>
-
-          {TABS.map((tab, index) => (
-            <Link
-              key={index}
-              data-id={tab}
-              className="p-2 hover:bg-zinc-400 hover:text-zinc-900 rounded-[5px] transition "
-              href={`/${tab == "Home" ? "" : tab.toLowerCase()}`}
-            >
-              {tab}
-            </Link>
-          ))}
+          
+          <AnimatedBackground
+            defaultValue={selectedTab}
+            onValueChange={(newActiveId) => {
+              setSelectedTab(newActiveId!);
+            }}
+            className="rounded-lg bg-white "
+            enableHover={false}
+            transition={{
+              type: 'spring',
+              bounce: 0.2,
+              duration: 0.3,
+            }}
+          >
+            {TABS.map((tab, index) => (
+              <Link
+                key={index}
+                data-id={tab}
+                className="px-3 py-2 text-md font-semibold text-zinc-300 transition-colors duration-300 hover:text-white data-[checked=true]:text-black "
+                href={`/${tab == "Home" ? "" : tab.toLowerCase()}`}
+              >
+                {tab}
+              </Link>
+            ))}
+          </AnimatedBackground>
+          
+          
         </div>
         <div className="flex flex-row items-center gap-[16px]">
           <a>Login</a>
@@ -47,7 +64,6 @@ export default function NavigationResult() {
           </button>
         </div>
       </div>
-      
     </>
   );
 }

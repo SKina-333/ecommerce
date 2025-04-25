@@ -65,10 +65,9 @@ export default function HomeCatalogueResult({
         className="flex flex-row  overflow-x-scroll scrollbar-hide shrink gap-5 "
       >
         {filteredCollections[0].node.products.edges.map((product) => (
-          <div key={product.node.id} className="flex flex-col justify-between ">
+          <div key={product.node.id} id="container" className="flex flex-col justify-between ">
             <div
-              id="container"
-              className={`min-w-[350px] rounded-[15px]  flex flex-col justify-between gap-3`}
+              className={`min-w-[350px] rounded-[15px] cursor-pointer flex flex-col justify-between gap-3`}
             >
               <div
                 style={{
@@ -80,20 +79,21 @@ export default function HomeCatalogueResult({
               <div className="font-bold">
                 ${parseInt(product.node.variants.edges[0].node.price.amount)}
               </div>
-              <div className="relative flex flex-col overflow-hidden p-[1px] rounded-[15px] bg-gray-100">
+              
+            </div>
+            <div className="relative flex flex-col overflow-hidden p-[2px] rounded-[15px] bg-white">
                 <Spotlight
-                  className="bg-[#F25C5C] blur-2xl"
+                  className="bg-[#F25C5C] blur-xl"
                   size={124}
                   springOptions={{
                     bounce: 0.3,
                     duration: 0.1,
                   }}
                 />
-                <button className="relative bg-[#f0f0f0]  text-black font-bold p-5 rounded-[15px] cursor-pointer">
+                <button className="relative bg-[#313131]  text-white font-bold p-5 rounded-[15px] cursor-pointer">
                   Add to cart
                 </button>
               </div>
-            </div>
           </div>
         ))}
       </div>

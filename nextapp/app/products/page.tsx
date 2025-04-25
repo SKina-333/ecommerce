@@ -1,10 +1,12 @@
-'use client'
+"use client";
 
-import React from 'react'
-
+import React from "react";
+import ProductsPage from "./ProductsPage";
 export default function page() {
+  
   return (
-    <div>products page</div>
-  )
+    <div className="p-5">
+      <ProductsPage />
+    </div>
+  );
 }
-

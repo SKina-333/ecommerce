@@ -48,6 +48,15 @@ interface ProductNode {
   images: {
     edges: ImageEdge[];
   };
+  collections: {
+    edges: {
+      node: {
+        id: string;
+        handle: string;
+        title: string;
+      };
+    }
+  };
   variants: {
     edges: VariantEdge[];
   };
@@ -196,9 +205,6 @@ interface CartLineMerchandise {
   __typename: string;
 }
 
-interface CartInput {
-  input: any;
-}
 
 interface UserErrors {
   code: string;
@@ -228,6 +234,15 @@ export async function getCollection(
                 edges {
                   node {
                     url
+                  }
+                }
+              }
+              collections(first: 10) {
+                edges {
+                  node {
+                    id
+                    handle
+                    title
                   }
                 }
               }
@@ -271,6 +286,15 @@ export async function getAllCollections() {
                 node {
                   id
                   title
+                  collections(first: 10) {
+                    edges {
+                      node {
+                        id
+                        handle
+                        title
+                      }
+                    }
+                  }
                   variants(first: 5) {
                     edges {
                       node {
@@ -629,6 +653,53 @@ export async function removeLineItems(cartId: string, lines: any) {
       lineIds: lines,
     },
   });
+  if (!response.data) {
+    throw new Error("Response data is undefined");
+  }
+
+  return response.data;
+}
+
+export async function getAllProducts() {
+  const allProductsQuery = `query getProducts {
+    products(first: 250) {
+      edges {
+        node {
+          id
+          title
+          images(first: 5) {
+            edges {
+              node {
+                url
+              }
+            }
+          }
+          collections(first: 10) {
+            edges {
+              node {
+                id
+                handle
+                title
+              }
+            }
+          }
+          variants(first: 5) {
+            edges {
+              node {
+                id
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+  const response = await client.request(allProductsQuery);
   if (!response.data) {
     throw new Error("Response data is undefined");
   }
